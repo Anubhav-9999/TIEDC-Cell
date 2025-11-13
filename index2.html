@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIEDC Cell JUIT - Technical Entrepreneurship Incubation & Entrepreneurship Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #8B1A1A;
+            --primary-purple: #6B5B95;
+            --accent-yellow: #F4A460;
+            --dark-bg: #000000;
+            --darker-bg: #0a0a0a;
+            --light-text: #ffffff;
+            --gray-text: #a0a0a0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3rem;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #fff, var(--gray-text));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            line-height: 1.2;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--gray-text);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-top: 0.3rem;
+        }
+
+        .logo-wrapper:hover .logo {
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--gray-text);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-yellow));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--light-text);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .mobile-menu span {
+            width: 28px;
+            height: 2px;
+            background: var(--light-text);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background: radial-gradient(ellipse at center, rgba(139, 26, 26, 0.15) 0%, transparent 70%),
+                        radial-gradient(ellipse at 80% 50%, rgba(107, 91, 149, 0.15) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100px 100px;
+            opacity: 0.3;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(100px, 100px);
+            }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 26, 26, 0.3), transparent);
+            border-radius: 50%;
+            top: -250px;
+            left: -250px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(107, 91, 149, 0.3), transparent);
+            border-radius: 50%;
+            bottom: -200px;
+            right: -200px;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 1100px;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gray-text);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-purple), var(--accent-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% center;
+            }
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        .hero-description {
+            font-size: 1.4rem;
+            color: var(--gray-text);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-purple));
+            color: var(--light-text);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(139, 26, 26, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light-text);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--light-text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-eyebrow {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.8s ease 0.2s both;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            animation: fadeIn 0.8s ease 0.4s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 26, 26, 0.3), rgba(107, 91, 149, 0.3));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .about-image-wrapper:hover::before {
+            opacity: 1;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image-wrapper:hover .about-image {
+            transform: scale(1.1);
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            border-color: var(--primary-purple);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            font-size: 0.95rem;
+            color: var(--gray-text);
+            margin: 0;
+        }
+
+        /* Initiatives Grid */
+        .initiatives-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .initiative-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .initiative-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--accent-yellow));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .initiative-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .initiative-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .initiative-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .initiative-card:hover .initiative-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .initiative-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .initiative-card p {
+            color: var(--gray-text);
+            line-height: 1.7;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .team-photo-wrapper {
+            position: relative;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .team-photo-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 26, 26, 0.4), rgba(107, 91, 149, 0.4));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .team-card:hover .team-photo-wrapper::after {
+            opacity: 1;
+        }
+
+        .team-photo {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: all 0.5s ease;
+        }
+
+        .team-card:hover .team-photo {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .team-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 2rem 1.5rem 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 2;
+        }
+
+        .team-card:hover .team-overlay {
+            opacity: 1;
+        }
+
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .team-card:hover .team-name {
+            color: var(--accent-yellow);
+        }
+
+        .team-role {
+            color: var(--accent-yellow);
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-tenure {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        /* Events Section */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 26, 26, 0.2), rgba(107, 91, 149, 0.2));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .event-card:hover::before {
+            opacity: 1;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .event-image-wrapper {
+            overflow: hidden;
+            height: 300px;
+            position: relative;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: brightness(0.8);
+        }
+
+        .event-card:hover .event-image {
+            transform: scale(1.1);
+            filter: brightness(1);
+        }
+
+        .event-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .event-date {
+            color: var(--accent-yellow);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .event-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .event-description {
+            color: var(--gray-text);
+            line-height: 1.7;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 8rem 3rem;
+            background: var(--darker-bg);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 26, 26, 0.6), rgba(107, 91, 149, 0.6));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: grayscale(50%);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.2) rotate(3deg);
+            filter: grayscale(0%);
+        }
+
+        /* Contact Section */
+        .contact-wrapper {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .contact-details p {
+            color: var(--gray-text);
+        }
+
+        .contact-details a {
+            color: var(--gray-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--light-text);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-purple));
+            transform: translateY(-5px) rotate(5deg);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--light-text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(107, 91, 149, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-purple));
+            border: none;
+            border-radius: 12px;
+            color: var(--light-text);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(139, 26, 26, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 4rem 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-about p {
+            color: var(--gray-text);
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--light-text);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: var(--gray-text);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 26, 26, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .initiatives-grid,
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.65rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 80%;
+                height: calc(100vh - 70px);
+                padding: 3rem 2rem;
+                transition: right 0.4s ease;
+                gap: 2rem;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .initiatives-grid,
+            .team-grid,
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-wrapper {
+                padding: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-wrapper">
+                <div class="logo">TIEDC Cell</div>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#initiatives">Initiatives</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">JUIT Technical Entrepreneurship Incubation</p>
+            <h1>Igniting <span class="gradient-text">Innovation</span>.<br>Empowering <span class="gradient-text">Entrepreneurs</span>.</h1>
+            <p class="hero-description">
+                Building the future of technology and entrepreneurship at Jaypee University of Information Technology
+            </p>
+            <div class="hero-buttons">
+                <a href="https://www.juit.ac.in/tiedc-cell" target="_blank" class="btn-primary">Explore Our Journey</a>
+                <a href="#contact" class="btn-secondary">Join Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <p class="section-eyebrow">Who We Are</p>
+            <h2 class="section-title">About JUIT TIEDC Cell</h2>
+            <p class="section-description">
+                Fostering innovation, entrepreneurship, and collaboration among students
+            </p>
+        </div>
+        <div class="about-grid">
+            <div class="about-content">
+                <h3>Empowering the Next Generation</h3>
+                <p>
+                    TIEDC Cell ( Entrepreneurship Incubation and  Development Cell) of JUIT fosters innovation, entrepreneurship, and collaboration among students. It empowers young minds to build, innovate, and lead real-world solutions.
+                </p>
+                <p>
+                    We provide a platform for aspiring entrepreneurs to transform their ideas into impactful ventures through mentorship, workshops, networking opportunities, and funding support.
+                </p>
+                <p>
+                    Our mission is to create a vibrant ecosystem where creativity meets execution, helping students develop the skills and mindset needed to succeed in today's dynamic business landscape.
+                </p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🚀</div>
+                        <h4>Innovation First</h4>
+                        <p>Encouraging groundbreaking ideas and solutions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🤝</div>
+                        <h4>Strong Network</h4>
+                        <p>Connecting with industry leaders and mentors</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💡</div>
+                        <h4>Learning Hub</h4>
+                        <p>Continuous workshops and skill development</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Impact Driven</h4>
+                        <p>Creating meaningful change in society</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=1000&fit=crop" alt="TIEDC Team Collaboration" class="about-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Initiatives Section -->
+    <section id="initiatives">
+        <div class="section-header">
+            <p class="section-eyebrow">What We Do</p>
+            <h2 class="section-title">Our Initiatives</h2>
+            <p class="section-description">
+                Comprehensive programs designed to nurture entrepreneurial talent
+            </p>
+        </div>
+        <div class="initiatives-grid">
+            <div class="initiative-card">
+                <div class="initiative-icon">🚀</div>
+                <h3>Startup Incubation</h3>
+                <p>Comprehensive support including mentorship, resources, and workspace facilities to help transform innovative ideas into successful businesses.</p>
+            </div>
+            <div class="initiative-card">
+                <div class="initiative-icon">💡</div>
+                <h3>Innovation Workshops</h3>
+                <p>Regular workshops and bootcamps on design thinking, product development, market research, and entrepreneurial skills.</p>
+            </div>
+            <div class="initiative-card">
+                <div class="initiative-icon">🤝</div>
+                <h3>Networking Events</h3>
+                <p>Connect with industry leaders, successful entrepreneurs, investors, and fellow innovators through curated sessions.</p>
+            </div>
+            <div class="initiative-card">
+                <div class="initiative-icon">💰</div>
+                <h3>Funding Support</h3>
+                <p>Access to seed funding opportunities, pitch competitions, and connections with angel investors and venture capitalists.</p>
+            </div>
+            <div class="initiative-card">
+                <div class="initiative-icon">🎯</div>
+                <h3>Competitions</h3>
+                <p>Participate in hackathons, business plan competitions, and innovation challenges to test your skills.</p>
+            </div>
+            <div class="initiative-card">
+                <div class="initiative-icon">📚</div>
+                <h3>Mentorship Programs</h3>
+                <p>Get guidance from experienced entrepreneurs, industry experts, and faculty members committed to your success.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+        <div class="section-header">
+            <p class="section-eyebrow">Leadership</p>
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-description">
+                The passionate individuals driving innovation at JUIT
+            </p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="https://i.ibb.co/WsXx5VV/image-2.png" alt="Ashmi Sharma" class="team-photo">
+                    <div class="team-overlay">
+                        <div class="team-name">Ashmi Sharma</div>
+                        <div class="team-role">Coordinator</div>
+                        <div class="team-tenure">Tenure 25-26</div>
+                    </div>
+                </div>
+                <h3 class="team-name">Ashmi Sharma</h3>
+                <p class="team-role">Coordinator</p>
+                <p class="team-tenure">Tenure 25-26</p>
+            </div>
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="https://i.ibb.co/WsXx5VV/image-2.png" alt="Abhitanj Pratap Singh" class="team-photo">
+                    <div class="team-overlay">
+                        <div class="team-name">Abhitanj Pratap Singh</div>
+                        <div class="team-role">Team Head</div>
+                        <div class="team-tenure">Public Relations & Marketing</div>
+                    </div>
+                </div>
+                <h3 class="team-name">Abhitanj Pratap Singh</h3>
+                <p class="team-role">Team Head</p>
+                <p class="team-tenure">Public Relations & Marketing</p>
+            </div>
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="https://i.ibb.co/T4jzBBy/image-3.png" alt="Krishna Pratap Singh" class="team-photo">
+                    <div class="team-overlay">
+                        <div class="team-name">Krishna Pratap Singh</div>
+                        <div class="team-role">Team Head</div>
+                        <div class="team-tenure">Corporate Relations</div>
+                    </div>
+                </div>
+                <h3 class="team-name">Krishna Pratap Singh</h3>
+                <p class="team-role">Team Head</p>
+                <p class="team-tenure">Corporate Relations</p>
+            </div>
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="https://i.ibb.co/0Kx1dMD/image-4.png" alt="Nilay Gupta" class="team-photo">
+                    <div class="team-overlay">
+                        <div class="team-name">Nilay Gupta</div>
+                        <div class="team-role">Team Head</div>
+                        <div class="team-tenure">Design & Social Media</div>
+                    </div>
+                </div>
+                <h3 class="team-name">Nilay Gupta</h3>
+                <p class="team-role">Team Head</p>
+                <p class="team-tenure">Design & Social Media</p>
+            </div>
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="https://i.ibb.co/Y3B2bNH/image-5.png" alt="Venkat Narahari" class="team-photo">
+                    <div class="team-overlay">
+                        <div class="team-name">Venkat Narahari</div>
+                        <div class="team-role">Team Head</div>
+                        <div class="team-tenure">Events & Operations</div>
+                    </div>
+                </div>
+                <h3 class="team-name">Venkat Narahari</h3>
+                <p class="team-role">Team Head</p>
+                <p class="team-tenure">Events & Operations</p>
+            </div>
+            <div class="team-card">
+                <div class="team-photo-wrapper">
+                    <img src="https://i.ibb.co/TMhSfGc/image-6.png" alt="Arin Choudhary" class="team-photo">
+                    <div class="team-overlay">
+                        <div class="team-name">Arin Choudhary</div>
+                        <div class="team-role">Team Head</div>
+                        <div class="team-tenure">Finance & Sponsorship</div>
+                    </div>
+                </div>
+                <h3 class="team-name">Arin Choudhary</h3>
+                <p class="team-role">Team Head</p>
+                <p class="team-tenure">Finance & Sponsorship</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events">
+        <div class="section-header">
+            <p class="section-eyebrow">What's Happening</p>
+            <h2 class="section-title">Our Events</h2>
+            <p class="section-description">
+                Bringing together innovators, entrepreneurs, and industry leaders
+            </p>
+        </div>
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=500&fit=crop" alt="Startup Mania" class="event-image">
+                </div>
+                <div class="event-content">
+                    <p class="event-date">📅 April 26-27, 2025</p>
+                    <h3 class="event-title">Startup Mania 2.0</h3>
+                    <p class="event-description">An exciting entrepreneurship summit featuring speaker sessions, workshops, and networking opportunities with industry leaders like Mukul Juneja and Sunchit Dudeja.</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1559523161-0fc0d8b38a7a?w=800&h=500&fit=crop" alt="Finance Workshop" class="event-image">
+                </div>
+                <div class="event-content">
+                    <p class="event-date">📅 November 16-17, 2024</p>
+                    <h3 class="event-title">Finance Workshop Series</h3>
+                    <p class="event-description">Expert-led sessions on financial planning, investment strategies, and wealth management featuring Sreyansh Banthia and Rakesh Rathod.</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=500&fit=crop" alt="Dalal Street Quest" class="event-image">
+                </div>
+                <div class="event-content">
+                    <p class="event-date">📅 E-Summit 2021</p>
+                    <h3 class="event-title">Dalal Street Quest</h3>
+                    <p class="event-description">A simulated investment prospect where participants invest and learn to manage their assets with prizes worth 6K+ in collaboration with DSIJ.</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=500&fit=crop" alt="Gaming Events" class="event-image">
+                </div>
+                <div class="event-content">
+                    <p class="event-date">📅 Ongoing Initiative</p>
+                    <h3 class="event-title">Krafton Gaming Events</h3>
+                    <p class="event-description">College campus gaming tours and esports competitions in partnership with Krafton India Esports, Unscripted, and ACM JUIT.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-header">
+            <p class="section-eyebrow">Our Moments</p>
+            <h2 class="section-title">Event Gallery</h2>
+            <p class="section-description">
+                Capturing the spirit of innovation and entrepreneurship
+            </p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=400&fit=crop" alt="Workshop Session" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1559523161-0fc0d8b38a7a?w=400&h=400&fit=crop" alt="Networking Event" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=400&fit=crop" alt="Startup Pitch" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=400&fit=crop" alt="Team Collaboration" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=400&fit=crop" alt="Innovation Challenge" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=400&fit=crop" alt="Mentorship Session" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=400&fit=crop" alt="Conference" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=400&fit=crop" alt="Team Building" class="gallery-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <p class="section-eyebrow">Connect With Us</p>
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-description">
+                Have questions? We'd love to hear from you
+            </p>
+        </div>
+        <div class="contact-wrapper">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>JUIT Waknaghat, Solan, Himachal Pradesh - 173234</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p><a href="mailto:tiedc@juit.ac.in">tiedc@juit.ac.in</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div class="contact-details">
+                            <h4>Website</h4>
+                            <p><a href="https://www.juit.ac.in/tiedc-cell" target="_blank">www.juit.ac.in/tiedc-cell</a></p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h4>Follow Us</h4>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/company/tiedcjuit/about/" target="_blank" class="social-link" title="LinkedIn">💼</a>
+                            <a href="https://www.instagram.com/tiedcjuit/" target="_blank" class="social-link" title="Instagram">📸</a>
+                            <a href="https://www.facebook.com/tiedcjuit" target="_blank" class="social-link" title="Facebook">📘</a>
+                            <a href="https://twitter.com/tiedcjuit" target="_blank" class="social-link" title="Twitter">🦅</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message"></textarea>
+                    </div>
+                    <button class="submit-btn">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>TIEDC Cell JUIT</h3>
+                <p>Empowering the next generation of innovators and entrepreneurs through education, mentorship, and real-world experience at Jaypee University of Information Technology.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#initiatives">Initiatives</a></li>
+                    <li><a href="#team">Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="https://www.juit.ac.in/tiedc-cell" target="_blank">Official Website</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://www.linkedin.com/company/tiedcjuit/about/" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://www.instagram.com/tiedcjuit/" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/tiedcjuit" target="_blank">Facebook</a></li>
+                    <li><a href="https://twitter.com/tiedcjuit" target="_blank">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 TIEDC Cell JUIT | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll to Top Button
+        const scrollTop = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Form Submission
+        const submitBtn = document.querySelector('.submit-btn');
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for scroll animations
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
